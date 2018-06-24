@@ -88,7 +88,7 @@
                 <version>0.24.0</version>
 
                 <configuration>
-                     <noCache>true</noCache>
+                    <noCache>true</noCache>
                     <verbose>true</verbose>
                     <images>
                         <image>
@@ -128,20 +128,18 @@
                         <artifactId>${project.artifactId}</artifactId>
                         <version>${project.version}</version>
                     </buildArgs>
-                    </configuration>
-                
-                <executions>
-                    <execution>
-                    <id>start</id>
-                    <phase>pre-integration-test</phase>
-                    <goals>
-                    <goal>stop</goal>
-                    <goal>build</goal>
-                    <goal>start</goal>
-                    </goals>
-                    </execution>
+                    </configuration>                
+                    <executions>
+                        <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                            <goal>build</goal>
+                            <goal>start</goal>
+                            </goals>
+                        </execution>
                     </executions>
-
 
                 <!-- <configuration>
                      <noCache>true</noCache>
