@@ -11,5 +11,5 @@ ENV DOCKER_DEST=/${WORK_DIR}${SERVICE_DIR}${artifactId}.jar
 #WORKDIR /${WORK_DIR}
 COPY ${SOURCE_DEST} ${DOCKER_DEST}
 #EXPOSE 3100
-CMD java -Dspring.profiles.active=$SPRING_PROFILE -Djava.security.egd=file:/dev/./urandom -jar ${DOCKER_DEST}
-#ENTRYPOINT exec java $JAVA_OPTS -Dspring.profiles.active=$SPRING_PROFILE -Djava.security.egd=file:/dev/./urandom -t ${artifactId} -jar ${DOCKER_DEST}
+#CMD java -Dspring.profiles.active=$SPRING_PROFILE -Djava.security.egd=file:/dev/./urandom -jar ${DOCKER_DEST}
+ENTRYPOINT exec java -Dspring.profiles.active=$SPRING_PROFILE -Djava.security.egd=file:/dev/./urandom -jar ${DOCKER_DEST}

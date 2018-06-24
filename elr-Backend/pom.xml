@@ -88,7 +88,7 @@
                 <version>0.24.0</version>
 
                 <configuration>
-                    <!-- <noCache>true</noCache> -->
+                    <noCache>true</noCache>
                     <verbose>true</verbose>
                     <images>
                         <image>
@@ -97,10 +97,10 @@
                         <build>
                             <dockerFileDir>${project.basedir}</dockerFileDir>
                             <from>openjdk:8-jdk-alpine</from>
-                            <assembly>
-                                <descriptorRef>artifact</descriptorRef>
-                            </assembly>
-                            <cmd>java -cp target/${project.build.finalName}.jar elr.ws.elrws.DemoApplication</cmd>
+                            <!-- <assembly>
+                                <descriptorRef>artifact-with-dependencies</descriptorRef>
+                            </assembly> -->
+                            <cmd>java -cp target/${project.build.finalName}.jar</cmd>
                         </build>
                         <run>
                         <namingStrategy>alias</namingStrategy>
@@ -112,7 +112,7 @@
                         <link>mongo</link>
                         </links> -->
                         <ports>
-                        <port>3100</port>
+                        <port>3100:8080</port>
                         </ports>
                         <log>
                         <prefix>${project.artifactId}-</prefix>
