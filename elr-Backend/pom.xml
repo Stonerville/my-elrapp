@@ -58,11 +58,92 @@
             </plugin>
             <!-- tag::plugin[] -->
 
+            <!-- <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.3</version>
+                <executions>
+                    <execution>
+                    <id>default</id>
+                    <goals>
+                        <goal>build</goal>
+                        <goal>push</goal>
+                    </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>spotify/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <version>${project.version}</version>
+                    </buildArgs>
+                </configuration>
+            </plugin>            -->
+
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.24.0</version>
+
                 <configuration>
+                     <noCache>true</noCache>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                        <name>${project.artifactId}</name>
+                        <alias>${project.artifactId}</alias>
+                        <build>
+                            <dockerFileDir>${project.basedir}</dockerFileDir>
+                            <from>openjdk:8-jdk-alpine</from>
+                            <assembly>
+                                <descriptorRef>artifact</descriptorRef>
+                            </assembly>
+                            <cmd>java -cp target/${project.build.finalName}.jar elr.ws.elrws.DemoApplication</cmd>
+                        </build>
+                        <run>
+                        <namingStrategy>alias</namingStrategy>
+                        <!-- <dependsOn>
+                        <container>mongo</container>
+                        </dependsOn> -->
+                        
+                        <!-- <links>
+                        <link>mongo</link>
+                        </links> -->
+                        <ports>
+                        <port>3100</port>
+                        </ports>
+                        <log>
+                        <prefix>${project.artifactId}-</prefix>
+                        <date>default</date>
+                        <color>cyan</color>
+                        </log>
+                        </run>
+                    
+                    </image>
+                    </images>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <version>${project.version}</version>
+                    </buildArgs>
+                    </configuration>
+                
+                <executions>
+                    <execution>
+                    <id>start</id>
+                    <phase>pre-integration-test</phase>
+                    <goals>
+                    <goal>stop</goal>
+                    <goal>build</goal>
+                    <goal>start</goal>
+                    </goals>
+                    </execution>
+                    </executions>
+
+
+                <!-- <configuration>
                      <noCache>true</noCache>
                     <verbose>true</verbose>
                     <images>
@@ -76,17 +157,16 @@
                             </build>
                         </image> 
                     </images>
-                    <!-- <buildArgPrefix>project.</buildArgPrefix> -->
                      <args>
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                         <artifactId>${project.artifactId}</artifactId>
                         <version>${project.version}</version>
                    </args>
-               </configuration>
+               </configuration> -->
             </plugin>
             <!-- end::plugin[] -->
 
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -107,7 +187,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin> -->
+            </plugin>
         </plugins>
     </build>
 
