@@ -1,0 +1,45 @@
+logging:
+  level:
+    .: error
+    org.springframework: ERROR
+    elr.ws.elrws: ERROR
+
+server:
+    port: 3001
+
+spring:
+  profiles:
+    active: "dev"
+  main:
+    banner-mode: "off"
+
+server:
+  email: default@default.com
+
+---
+
+spring:
+  profiles: dev
+server:
+  email: dev@default.com
+#   cluster:
+#     - ip: 127.0.0.1
+#       path: /dev1
+#     - ip: 127.0.0.2
+#       path: /dev2
+#     - ip: 127.0.0.3
+#       path: /dev3
+
+---
+
+spring:
+  profiles: prod
+server:
+  email: prod@default.com
+#   cluster:
+#     - ip: 192.168.0.1
+#       path: /app1
+#     - ip: 192.168.0.2
+#       path: /app2
+#     - ip: 192.168.0.3
+#       path: /app3
